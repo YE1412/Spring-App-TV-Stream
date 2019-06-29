@@ -24,11 +24,12 @@ public class Dao {
 	private EntityManagerFactory factory = null;
 	public void init() {
 		String url = null, user = null, password = null;
-		try (InputStream input = new FileInputStream("src/main/resources/config.properties")) {
+		try (InputStream inputStream = getClass()
+				.getClassLoader().getResourceAsStream("config.properties")) {
             Properties prop = new Properties();
 
             // load a properties file
-            prop.load(input);
+            prop.load(inputStream);
 //            System.out.println(prop.getProperty("jdbc.url"));
 //            System.out.println(prop.getProperty("jdbc.user"));
 //            System.out.println(prop.getProperty("jdbc.password"));
@@ -68,7 +69,7 @@ public class Dao {
       }
    }
    
-	// Créer un EM et ouvrir une transaction
+	// CrÃ©er un EM et ouvrir une transaction
 	private EntityManager newEntityManager() throws Exception{
 	   EntityManager em = factory.createEntityManager();
 	   //factory.addNamedQuery(query.getIdentifier(), em.createQuery(query.getQuery()));
@@ -76,7 +77,7 @@ public class Dao {
 	   return (em);
 	}
 	
-	// Fermer un EM et défaire la transaction si nécessaire
+	// Fermer un EM et dÃ©faire la transaction si nÃ©cessaire
 	private void closeEntityManager(EntityManager em) {
 	   if (em != null) {
 	      if (em.isOpen()) {
