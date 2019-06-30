@@ -1,6 +1,5 @@
 package tvs.daohibernate;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
@@ -24,6 +23,7 @@ public class Dao {
 	private EntityManagerFactory factory = null;
 	public void init() {
 		String url = null, user = null, password = null;
+		
 		try (InputStream inputStream = getClass()
 				.getClassLoader().getResourceAsStream("config.properties")) {
             Properties prop = new Properties();
@@ -69,7 +69,7 @@ public class Dao {
       }
    }
    
-	// CrÃ©er un EM et ouvrir une transaction
+	// Créer un EM et ouvrir une transaction
 	private EntityManager newEntityManager() throws Exception{
 	   EntityManager em = factory.createEntityManager();
 	   //factory.addNamedQuery(query.getIdentifier(), em.createQuery(query.getQuery()));
@@ -77,7 +77,7 @@ public class Dao {
 	   return (em);
 	}
 	
-	// Fermer un EM et dÃ©faire la transaction si nÃ©cessaire
+	// Fermer un EM et défaire la transaction si nécessaire
 	private void closeEntityManager(EntityManager em) {
 	   if (em != null) {
 	      if (em.isOpen()) {

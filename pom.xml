@@ -9,23 +9,28 @@
     <encoding>cp1252</encoding>
   </properties>
   <build>
-	 <finalName>tvs</finalName>
+  <finalName>tvs</finalName>
   	<plugins>
   		<plugin>
   		<groupId>org.apache.maven.plugins</groupId>
 	    <artifactId>maven-war-plugin</artifactId>
 	    <version>3.2.3</version>
 	    <configuration>
-		<webResources>
-			<resource>
-				<directory>WebContent/</directory>
-			</resource>
-		</webResources>
-	        <archive>
+	    	<webResources>
+	    		<resource>
+	    			<directory>WebContent/</directory>
+	    		</resource>
+	    	</webResources>
+	    	<archive>
             <manifest>
               <addClasspath>true</addClasspath>
             </manifest>
           </archive>
+          <resources>
+          	<resource>
+          		<directory>WebContent/</directory>
+          	</resource>
+          </resources>
 	    </configuration>
 		</plugin>
   	</plugins>
