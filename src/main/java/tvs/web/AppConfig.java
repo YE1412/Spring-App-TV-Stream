@@ -33,7 +33,7 @@ public class AppConfig implements WebMvcConfigurer {
 	public ResourceBundleMessageSource messageSource() {
 	    ResourceBundleMessageSource r = new ResourceBundleMessageSource();
 	    System.out.println("OK!M");
-	    r.setBasenames("/tvs/web/movie");
+	    r.setBasenames("movie");
 	    //r.setUseCodeAsDefaultMessage(true);
 	    return r;
 	}
