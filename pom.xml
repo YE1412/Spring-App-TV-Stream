@@ -9,6 +9,7 @@
     <encoding>cp1252</encoding>
   </properties>
   <build>
+	 <finalName>movies</finalName>
   	<plugins>
   		<plugin>
   		<groupId>org.apache.maven.plugins</groupId>
