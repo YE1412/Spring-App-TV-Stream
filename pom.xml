@@ -16,17 +16,11 @@
 	    <artifactId>maven-war-plugin</artifactId>
 	    <version>3.2.3</version>
 	    <configuration>
-		    <packagingIncludes>Webcontent/</packagingIncludes>
 	        <archive>
             <manifest>
               <addClasspath>true</addClasspath>
             </manifest>
           </archive>
-		    <resources>
-		    <resource>
-			    <directory>WebContent/</directory>
-		 </resource>
-		    </resources>
 	    </configuration>
 		</plugin>
   	</plugins>
