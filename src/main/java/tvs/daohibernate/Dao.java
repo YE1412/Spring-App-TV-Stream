@@ -269,9 +269,9 @@ public class Dao {
 		   }
 	}
 	public User createUser() {
-		 return User.of("default", "motdepasse", new Date());
+		 return User.of("Anonymous", "motdepasse", new Date());
 	}
-	public User findUser(String name, String pass) {
+	public User getUser(String name, String pass) {
 		EntityManager em = null;
 	    User usr = null;
 	    try {
@@ -281,6 +281,25 @@ public class Dao {
 	        //use criteria later
 	        TypedQuery<User> q = em.createQuery(query, User.class);
 	        usr = q.setParameter("name", name).setParameter("pass", pass).getSingleResult();
+	    } catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+	        closeEntityManager(em);
+	    }
+		return usr;
+	}
+	
+	public User findUser(String name) {
+		EntityManager em = null;
+	    User usr = null;
+	    try {
+	        em = newEntityManager();
+	        String query = "SELECT u FROM user u WHERE u.nom=:name";
+	        //em.set
+	        //use criteria later
+	        TypedQuery<User> q = em.createQuery(query, User.class);
+	        usr = q.setParameter("name", name).getSingleResult();
 	    } catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

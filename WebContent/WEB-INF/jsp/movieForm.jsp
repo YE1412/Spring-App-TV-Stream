@@ -15,7 +15,7 @@
     <div class="container">
         <h1><spring:message code="movieFormPage.headline" /></h1>
 
-        <form:form method="POST" modelAttribute="movie">
+        <form:form method="POST" modelAttribute="movie" enctype="multipart/form-data">
 
             <form:errors path="*" cssClass="alert alert-danger" element="div" />
 

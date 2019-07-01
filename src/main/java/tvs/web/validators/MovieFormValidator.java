@@ -19,9 +19,8 @@ public class MovieFormValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		// TODO Auto-generated method stub
 //		Movie m = (Movie) target;
-
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name",
-                "movieForm.name");
+                "movieFormPage.name");
 	}
 
 }

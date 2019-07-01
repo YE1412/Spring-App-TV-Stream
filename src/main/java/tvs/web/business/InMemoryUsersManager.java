@@ -19,11 +19,15 @@ public class InMemoryUsersManager implements IUser {
 		// TODO Auto-generated method stub
 		dao.addUser(user);
 	}
-
+	@Override
+	public User findUser(String name) {
+		// TODO Auto-generated method stub
+		return dao.findUser(name);
+	}
 	@Override
 	public User getUser(String name, String pass) {
 		// TODO Auto-generated method stub
-		return dao.findUser(name, pass);
+		return dao.getUser(name, pass);
 	}
 	@Override
 	public User newUser() {

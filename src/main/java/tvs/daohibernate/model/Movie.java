@@ -20,6 +20,14 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import tvs.web.model.FormDataWithFile;
 @Entity(name="movie")
 @Table(name = "movie",
 	uniqueConstraints = {
@@ -31,6 +39,9 @@ import javax.persistence.Version;
         name="findAllMoviesOrderAsc",
         query="SELECT m FROM movie m ORDER BY m.name ASC"
 )
+@NoArgsConstructor
+@RequiredArgsConstructor(staticName="of")
+@ToString(of= {"name", })
 public class Movie implements Serializable {
 
 	/**
@@ -40,6 +51,7 @@ public class Movie implements Serializable {
 	@Id
 	@Column(name = "id", nullable = false, unique = true)
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Getter @Setter
 	private int id;
 	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST },
 		      fetch = FetchType.LAZY, mappedBy = "owner")
@@ -47,46 +59,27 @@ public class Movie implements Serializable {
 	@Basic(optional = false)
 	@Column(name = "title_short", length = 55,
       nullable = false, unique = false)
+	@NonNull
+	@Getter @Setter
 	private String name;
 	@Version()
 	@Transient
 	private long version = 0;
+	@Getter @Setter
+	private String filePath;
 	@Transient
 	public static long updateCounter = 0;
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public long getVersion() {
-		return version;
-	}
-	public void setVersion(long version) {
-		this.version = version;
-	}
 	
 	@PreUpdate
    public void beforeUpdate() {
-      System.err.println("PreUpdate of " + this);
+//      System.err.println("PreUpdate of " + this);
    }
 
    @PostUpdate
    public void afterUpdate() {
-      System.err.println("PostUpdate of " + this);
+//      System.err.println("PostUpdate of " + this);
       updateCounter++;
    }
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return "Movie(id=" + getId() + ",title=" + getName() + ",)";
-	}
 	
 	public Set<Certification> getCertifs() {
 		return certifs;

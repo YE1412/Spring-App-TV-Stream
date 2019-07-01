@@ -1,28 +1,17 @@
 package tvs.web;
 
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-
+import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
-import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
-import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
-import org.springframework.web.servlet.i18n.SessionLocaleResolver;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
 import tvs.web.business.SpringBusinessConfig;
 @Import(SpringBusinessConfig.class)
 @Configuration
@@ -35,6 +24,8 @@ public class SpringStart implements WebApplicationInitializer {
 //	@Autowired
 //	@Qualifier("run")
 //	public ILogger logger;
+	private String TMP_FOLDER = "/tmp"; 
+	private int MAX_UPLOAD_SIZE = 5 * 1024 * 1024 * 1024;
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		// TODO Auto-generated method stub
@@ -47,6 +38,8 @@ public class SpringStart implements WebApplicationInitializer {
 		// Init application context
         AnnotationConfigWebApplicationContext webCtx
             = new AnnotationConfigWebApplicationContext();
+//        DiskFileItemFactory fileFactory = new DiskFileItemFactory();
+//		File filesDir = (File) servletContext.;
         webCtx.register(AppConfig.class);
         webCtx.register(SpringStart.class);
         webCtx.setServletContext(servletContext);
@@ -54,10 +47,13 @@ public class SpringStart implements WebApplicationInitializer {
         ServletRegistration.Dynamic servlet
             = servletContext.addServlet("springapp", new DispatcherServlet(webCtx));
         servlet.setLoadOnStartup(1);
+        MultipartConfigElement multipartConfigElement = new MultipartConfigElement(TMP_FOLDER, 
+                MAX_UPLOAD_SIZE, MAX_UPLOAD_SIZE * 5, MAX_UPLOAD_SIZE / 2);
+               
+        servlet.setMultipartConfig(multipartConfigElement);
         servlet.addMapping("*.htm");
         servlet.addMapping("/actions/*");
 	}
-	
 //	private void logTrace(String msg) {
 //		this.logger.log(msg);
 //	}
